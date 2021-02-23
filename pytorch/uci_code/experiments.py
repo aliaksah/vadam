@@ -510,10 +510,14 @@ class ExperimentVadamMLPReg(Experiment):
         # Unnormalize test predictions
         if self.normalize_y:
             mu_list = [self.y_mean + self.y_std * mu for mu in mu_list]
-        
+
+        #print(mu_list.shape)
+        print(y_test.mean())
         # Store test metrics
         metric_dict['test_pred_logloss'].append(metrics.predictive_avneg_loglik_gaussian(mu_list, y_test, tau = tau).detach().cpu().item())
         metric_dict['test_pred_rmse'].append(metrics.predictive_rmse(mu_list, y_test).detach().cpu().item())
+
+
 
     def _print_progress(self, epoch):
 

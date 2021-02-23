@@ -31,7 +31,7 @@ model_params = {'hidden_sizes': [50],
                 'noise_prec': None}
 
 # Training parameters
-train_params = {'num_epochs': 10,
+train_params = {'num_epochs': 40,
                 'batch_size': None,
                 'train_mc_samples': None,
                 'eval_mc_samples': 100,
