@@ -412,10 +412,10 @@ class ExperimentBBBMLPReg(Experiment):
     def _print_progress(self, epoch):
 
         # Print progress
-        print('Epoch [{}/{}], Neg. Ave. ELBO: {:.4f}, Logloss: {:.4f}, Test Logloss: {:.4f}'.format(
+        print('Epoch [{}/{}], test_pred_rmse: {:.4f}, Logloss: {:.4f}, Test Logloss: {:.4f}'.format(
                 epoch+1,
                 self.train_params['num_epochs'],
-                self.metric_history['elbo_neg_ave'][-1],
+                self.metric_history['test_pred_rmse'][-1],
                 self.metric_history['train_pred_logloss'][-1],
                 self.metric_history['test_pred_logloss'][-1]))
 
@@ -432,6 +432,8 @@ class ExperimentVadamMLPReg(Experiment):
 
         # Define name for experiment class
         experiment_name = "vadam_mlp_reg"
+
+        print(experiment_name)
 
         # Define folder name for results
         self.folder_name = folder_name(experiment_name, data_set, model_params, train_params, optim_params, results_folder)
@@ -516,10 +518,10 @@ class ExperimentVadamMLPReg(Experiment):
     def _print_progress(self, epoch):
 
         # Print progress
-        print('Epoch [{}/{}], Neg. Ave. ELBO: {:.4f}, Logloss: {:.4f}, Test Logloss: {:.4f}'.format(
+        print('Epoch [{}/{}], test_pred_rmse: {:.4f}, Logloss: {:.4f}, Test Logloss: {:.4f}'.format(
                 epoch+1,
                 self.train_params['num_epochs'],
-                self.metric_history['elbo_neg_ave'][-1],
+                self.metric_history['test_pred_rmse'][-1],
                 self.metric_history['train_pred_logloss'][-1],
                 self.metric_history['test_pred_logloss'][-1]))
 

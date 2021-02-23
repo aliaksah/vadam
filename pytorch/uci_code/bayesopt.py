@@ -2,6 +2,9 @@ import os
 import math
 import pickle
 import copy
+import sys
+
+sys.path.append("/mn/sarpanitu/ansatte-u2/aliaksah/mn/sarpanitu/ansatte-u2/aliaksah/PycharmProjects/vadam2/pytorch/")
 from sklearn.gaussian_process.kernels import Matern
 from experiments_cv import CrossValExperimentVadamMLPReg, CrossValExperimentBBBMLPReg
 from experiments import ExperimentVadamMLPReg, ExperimentBBBMLPReg, ExperimentVpropMLPReg
@@ -112,22 +115,26 @@ def run_bayesopt(method, data_folder, results_folder, data_params, model_params,
                          optim_params = optim_params)
     
     os.makedirs(folder, exist_ok=True)
-    
+
+    print("Optimal Params loading")
+
     output = open(os.path.join(folder, 'res_all.pkl'), 'wb')
-    pickle.dump(bo.res['all'], output)
+    pickle.dump(bo.res, output)
     output.close()
     output = open(os.path.join(folder, 'res_max.pkl'), 'wb')
-    pickle.dump(bo.res['max'], output)
+    pickle.dump(bo.max, output)
     output.close()
 
     ############################################
     ## Run experiment with optimal parameters ##
     ############################################
-        
+
     model_params_final = copy.deepcopy(model_params)
-    model_params_final['prior_prec'] = math.exp(bo.res['max']['max_params']['log_prior_prec'])
-    model_params_final['noise_prec'] = math.exp(bo.res['max']['max_params']['log_noise_prec'])
-    
+    model_params_final['prior_prec'] = math.exp(bo.max['params']['log_prior_prec'])
+    model_params_final['noise_prec'] = math.exp(bo.max['params']['log_noise_prec'])
+
+    print("Optimal Params loaded")
+
     #######################
     ## Define experiment ##
     #######################
