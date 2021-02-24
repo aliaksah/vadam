@@ -500,6 +500,12 @@ class ExperimentVadamMLPReg(Experiment):
         metric_dict['train_pred_rmse'].append(metrics.predictive_rmse(mu_list, y_train).detach().cpu().item())
         metric_dict['elbo_neg_ave'].append(metrics.avneg_elbo_gaussian(mu_list, y_train, tau = tau, train_set_size = self.data.get_train_size(), kl = self.optimizer.kl_divergence()).detach().cpu().item())
 
+        print("mean x_train: ")
+        print(x_train.mean())
+
+        print("mean y_train: ")
+        print(y_train.mean())
+
         # Normalize test x
         if self.normalize_x:
             x_test = (x_test-self.x_means)/self.x_stds
@@ -511,7 +517,10 @@ class ExperimentVadamMLPReg(Experiment):
         if self.normalize_y:
             mu_list = [self.y_mean + self.y_std * mu for mu in mu_list]
 
+        print("mean x_test: ")
+        print(x_test.mean())
         #print(mu_list.shape)
+        print("mean y_test: ")
         print(y_test.mean())
         # Store test metrics
         metric_dict['test_pred_logloss'].append(metrics.predictive_avneg_loglik_gaussian(mu_list, y_test, tau = tau).detach().cpu().item())
